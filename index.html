@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Pokedex</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@mdi/font@6.9.96/css/materialdesignicons.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/poketypes.style.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body class="has-background-danger">
+  <main class="container is-fluid has-background-danger is-100h is-pokedex" id="pokedex">
+    <section class="section pt-6 pb-6 has-text-centered">
+      <h1 class="title is-size-lg is-size-3-mobile has-text-white pb-6 has-text-weight-bold">my-pokedex</h1>
+      <h2 class="subtitle is-size-2 has-text-white has-text-weight-light">
+        Learn about your favorite Pokémon, abilities, weakness and more. <br />Gotta search'em all!
+      </h2>
+      <div class="is-flex is-justify-content-center is-gap-3 is-align-items-center">
+        <div class="field has-addons has-addons-centered pt-4">
+          <div class="control has-icons-left">
+            <input class="input is-medium is-weight" type="text" placeholder="E.g. Pikachu, 385, dragon" id="search"
+              autocomplete="off">
+            <span class="icon is-medium is-left">
+              <i class="mdi mdi-magnify mdi-36px"></i>
+            </span>
+          </div>
+          <div class="control">
+            <button class="button is-medium is-hidden" id="btnClearSearch" aria-label="clear search">
+              <span class="icon">
+                <i class="mdi mdi-close"></i>
+              </span>
+            </button>
+          </div>
+          <div class="control">
+            <button class="button is-medium is-primary" id="btnSearch" aria-label="search pokemon">Search</button>
+          </div>
+        </div>
+        <div class="dropdown is-hoverable has-text-left">
+          <div class="dropdown-trigger">
+            <button class="button is-medium is-light" aria-haspopup="true" aria-controls="dropdown-menu"
+              aria-label="sort by">
+              <span>Sort by</span>
+              <span class="icon">
+                <i class="mdi mdi-menu-down mdi-24px" aria-hidden="true"></i>
+              </span>
+            </button>
+          </div>
+          <div class="dropdown-menu" id="dropdown-menu" role="menu">
+            <div class="dropdown-content">
+              <a href="#" class="dropdown-item" id="btnSortAsc">
+                <span class="icon">
+                  <i class="mdi mdi-sort-numeric-ascending mdi-24px" aria-hidden="true"></i>
+                </span>
+                Ascending
+              </a>
+              <a class="dropdown-item" id="btnSortDesc">
+                <span class="icon">
+                  <i class="mdi mdi-sort-numeric-descending mdi-24px" aria-hidden="true"></i>
+                </span>
+                Descending
+              </a>
+              <hr class="dropdown-divider">
+              <a href="#" class="dropdown-item" id="btnSortAZ">
+                <span class="icon">
+                  <i class="mdi mdi-sort-alphabetical-ascending mdi-24px" aria-hidden="true"></i>
+                </span>
+                A to Z
+              </a>
+              <a href="#" class="dropdown-item" id="btnSortZA">
+                <span class="icon">
+                  <i class="mdi mdi-sort-alphabetical-descending mdi-24px" aria-hidden="true"></i>
+                </span>
+                Z to A
+              </a>
+            </div>
+          </div>
+        </div>
+        <button class="button is-ghost has-text-white is-size-5 is-hidden" id="btnClearFilter">
+          Clear filter
+        </button>
+      </div>
+    </section>
+    <section class="section p-0 is-flex is-justify-content-center is-align-items-center" id="loader">
+      <div class="control is-loading is-rendering"></div>
+    </section>
+    <section class="section p-0 is-hidden" id="noData">
+      <div class="columns is-centered">
+        <div class="column is-two-fifths">
+          <article class="message is-large">
+            <div class="message-body">
+              <h1 class="is-size-1 has-text-centered">NO DATA</h1>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section class="section is-hidden" id="pokeSection">
+      <!-- Section Template
+      <div class="columns is-justify-content-center is-flex-wrap-wrap is-gap-3">
+        <div class="column">
+          ------- Card Template
+          <div class="card mb-5 js-modal-trigger" data-target="modal-js-example">
+            <header class="card-header">
+              <div class="px-2 is-flex is-align-items-center is-justify-content-center">
+                <span class="icon">
+                  <i class="mdi mdi-pound"></i>
+                </span>
+                <span>999</span>
+              </div>
+              <p class="card-header-title">Name_of_Pokemon</p>
+            </header>
+            <div class="card-image">
+              <figure class="image is-1by1">
+                <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="content is-flex is-justify-content-center is-flex-wrap-wrap is-gap-1">
+                <span class="type-icon type-ghost">Ghost</span>
+                <span class="type-icon type-fire">Fire</span>
+                <span class="type-icon type-fire">Fire</span>
+                <span class="type-icon type-normal">Normal</span>
+                <span class="type-icon type-normal">Normal</span>
+                <span class="type-icon type-normal">Normal</span>
+                <span class="type-icon type-normal">Normal</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+    -->
+    </section>
+    <!-- Pagination Buttons -->
+    <section class="section">
+      <nav class="field has-addons has-addons-centered is-hidden" role="navigation" aria-label="pagination"
+        id="pagination">
+        <div class="control">
+          <button class="button is-warning" aria-label="Previous page" pagination-func="prevPage">
+            <span class="icon">
+              <i class="mdi mdi-arrow-left-bold mdi-36px"></i>
+            </span>
+          </button>
+        </div>
+        <div class="control">
+          <span class="select">
+            <select pagination-func="selectPages">
+              <option selected disabled value="0">0</option>
+            </select>
+          </span>
+        </div>
+        <div class="control">
+          <button class="button is-warning" aria-label="Next page" pagination-func="nextPage">
+            <span class="icon">
+              <i class="mdi mdi-arrow-right-bold mdi-36px"></i>
+            </span>
+          </button>
+        </div>
+      </nav>
+    </section>
+  </main>
+  <!-- Modal Template -->
+  <div class="modal" id="pokeModal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">
+          <span class="icon">
+            <i class="mdi mdi-pound"></i>
+          </span>
+          <span name="number">999</span>
+        </p>
+        <button class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <div class="columns">
+          <div class="column">
+            <figure class="image is-1by1">
+              <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image" name="image">
+            </figure>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label">Name:</label>
+              <div class="control">
+                <input class="input is-static" type="text" value="PokeName" name="name" readonly>
+              </div>
+            </div>
+            <div class="field is-grouped">
+              <div class="field">
+                <label class="label">Height:</label>
+                <div class="control">
+                  <input class="input is-static" type="text" value="99 in" name="height" readonly>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Weight:</label>
+                <div class="control">
+                  <input class="input is-static" type="text" value="99 lbs" name="weight" readonly>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Abilities:</label>
+              <div class="control">
+                <input class="input is-static" type="text" value="Overgrow" name="abilities" readonly>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column">
+            <label class="label">Type:</label>
+            <div class="content is-flex is-justify-content-center is-flex-wrap-wrap is-gap-1" name="type">
+              <span class="type-icon type-ghost">Ghost</span>
+              <span class="type-icon type-fire">Fire</span>
+              <span class="type-icon type-normal">Normal</span>
+            </div>
+          </div>
+          <div class="column">
+            <label class="label">Weakness:</label>
+            <div class="content is-flex is-justify-content-center is-flex-wrap-wrap is-gap-1" name="weakness">
+              <span class="type-icon type-ice">Ice</span>
+              <span class="type-icon type-poison">Poison</span>
+              <span class="type-icon type-flying">Flying</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <!-- Back to Top Button Template -->
+  <!-- <button class="button is-large is-info is-hidden" id="btnBackToTop" aria-label="Back to top">
+    <span class="icon">
+      <i class="mdi mdi-arrow-up-bold mdi-48px"></i>
+    </span>
+  </button> -->
+  <!-- My Scripts -->
+  <script src="./assets/js/Modal.Bulma.js"></script>
+  <script src="./main.js" type="module"></script>
+</body>
+
+</html>

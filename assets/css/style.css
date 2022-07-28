@@ -1,0 +1,60 @@
+html {
+  overflow-y: auto;
+}
+
+.is-100h {
+  min-height: 100vh;
+  height    : 100%;
+}
+
+.card {
+  cursor    : pointer;
+  min-height: 350px;
+}
+
+.card:hover {
+  outline: 8px solid rgb(245, 138, 119);
+}
+
+.card:active {
+  transform : scale(0.99);
+  box-shadow: none;
+}
+
+.is-size-lg {
+  font-size: 4.2rem;
+}
+
+.is-gap-1 {
+  gap: 0.2rem;
+}
+
+.is-gap-3 {
+  gap: 1rem;
+}
+
+.is-back-top {
+  position: fixed;
+  right   : 1%;
+  bottom  : 2%;
+}
+
+.is-width-lg {
+  width: 30rem;
+}
+
+.is-pokedex {
+  display        : flex;
+  flex-direction : column;
+  justify-content: space-between;
+}
+
+.is-rendering {
+  font-size: 100px;
+}
+
+.is-rendering::after {
+  top         : 0 !important;
+  right       : -50px !important;
+  border-width: 4px !important;
+}
